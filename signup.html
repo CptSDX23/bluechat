@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>BlueChat - Sign Up</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="title">
+            <a href="/" class="clear">BlueChat</a>
+            <a href="/login" class="clear" id="acc" style="float: right; font-size: 20px; padding-right: 15px; padding-top: 10px;">Log In</a>
+        </div>
+        <h1 class="center" style="font-size: 65px; padding: 50px;">Sign Up</h1>
+        <div class="login">
+            <p>Username</p>
+            <input type="text" placeholder="Username" class="creds" id="username">
+            <div style="margin: 25px;"></div>
+            <p>Password</p>
+            <input type="password" placeholder="Password" class="creds" id="password">
+            <p style="margin-top: 10px; font-size: 15px; color: red; text-align: center;" id="error"></p>
+            <div class="row" style="margin-top: 15px; margin-bottom: 20px;">
+                <button class="button2" style="height: 60px;" onclick="signup()">Sign Up</button>
+            </div>
+            <p style="font-size: 15px; text-align: center;">Already have an account? <a href="/login">Log In</a></p>
+        </div>
+
+        <script src="/login.js"></script>
+        <script src="credentials.js"></script>
+    </body>
+
+</html>

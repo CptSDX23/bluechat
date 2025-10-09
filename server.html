@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>BlueChat - Server</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body style="overflow: hidden;">
+        <div class="title">
+            <a href="/" class="clear">BlueChat</a>
+            <a href="/login" class="clear" id="acc" style="float: right; font-size: 20px; padding-right: 15px; padding-top: 10px;">Log In</a>
+        </div>
+        <div>
+            <span>
+                <h1 id="name" style="float: left; font-size: 30px;">Server</h1>
+                <p id="desc" style="float: right; width: 75%; text-align: right;">Loading...</p>
+            </span>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div id="chat" class="hidescroll" style="margin: 15px; overflow-y: auto; height: calc(100vh - 200px);"></div>
+        <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(60, 60, 60); padding: 5px;">
+            <input type="text" placeholder="Enter a message..." class="message" id="message">
+        </div>
+
+        <script src="credentials.js"></script>
+        <script src="chatServer.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+    "accounts": [
+        {
+            "username": "cpt",
+            "password": "1234",
+            "description": "A test user that you should not care about",
+            "servers": [
+                "ITOAGeneral",
+                "Admins"
+            ]
+        },
+        {
+            "username": "urmom",
+            "password": "isfat",
+            "description": "New User",
+            "servers": []
+        }
+    ]
+}

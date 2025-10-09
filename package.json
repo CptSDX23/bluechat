@@ -1,0 +1,12 @@
+{
+  "name": "bluechat",
+  "version": "0.0.2",
+  "description": "Simple JS chat application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jackson Chapman <jackson.e.chapman@gmail.com>",
+  "license": "ISC"
+}
