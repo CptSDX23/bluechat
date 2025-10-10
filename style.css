@@ -126,7 +126,7 @@ body {
 .message {
     color:            white;
     background-color: rgb(50, 50, 50);
-    width:            calc(100vw - 50px);
+    width:            calc(100% - 20px);
     height:           30px;
     border-radius:    10px;
     border:           none;
@@ -162,6 +162,18 @@ a.clear:hover {
 a.clear:active {
     color:          white;
     text-decoration: none;
+}
+
+a.clearline {
+    color:          white;
+}
+
+a.clearline:hover {
+    color:          white;
+}
+
+a.clearline:active {
+    color:          white;
 }
 
 .hidescroll {

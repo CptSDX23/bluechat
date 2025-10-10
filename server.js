@@ -40,6 +40,11 @@ let app = http.createServer((req, res) => {
             res.writeHead(200, {"Content-Type": "text/javascript"});
             res.end(js);
 
+        } else if (path == "/notallowed") {
+            let page = fs.readFileSync("notAllowed.html");
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(page);
+
         // Pages
         } else if (path == "/login") {
 
@@ -180,6 +185,38 @@ let app = http.createServer((req, res) => {
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end(ret);
             }
+
+        } else if (path == "/msg") {
+
+            let query   = url.parse(req.url, true).query;
+            let rawData = fs.readFileSync("serverData.json");
+            let data    = JSON.parse(rawData);
+            let ret     = 0;
+            let fail    = true;
+
+            for (var i = 0; i < data.servers.length; i++) {
+                if (data.servers[i].name == query.s) {
+
+                    fail = false;
+                    ret  = i;
+
+                }
+            }
+
+            console.log(`Message: ${query.u} "${query.m}"`);
+
+            if (fail) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                data.servers[ret].messages.push(JSON.parse(`{"username": "${query.u}", "message": "${query.m}"}`));
+                fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
             
         // 404
         } else {
@@ -195,5 +232,12 @@ let app = http.createServer((req, res) => {
 
 });
 
-app.listen(8000, "0.0.0.0");
-console.log("Running BlueChat server from 8000");
+const hostname = "localhost";
+const port     = 8000;
+
+app.listen(port, hostname, () => {
+        console.log(`BlueChat server running at http://${hostname}:${port}`)
+});
+
+// app.listen(8000, "0.0.0.0");
+// console.log("Running BlueChat server from 8000");

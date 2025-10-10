@@ -2,15 +2,48 @@
     "servers": [
         {
             "name": "ITOAGeneral",
-            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please don't be obscene or a biggot!",
+            "owner": "cpt",
+            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense!",
+            "whitelist": [
+                "cpt",
+                "urmom"
+            ],
             "messages": [
                 {
+                    "username": "urmom",
+                    "message": "test again"
+                },
+                {
                     "username": "cpt",
-                    "message": "This is a test rn"
+                    "message": "hello world"
+                },
+                {
+                    "username": "cpt",
+                    "message": "again"
+                },
+                {
+                    "username": "cpt",
+                    "message": "clear test"
+                },
+                {
+                    "username": "cpt",
+                    "message": "type"
                 },
                 {
                     "username": "urmom",
-                    "message": "im fat lol"
+                    "message": "im so fat lol"
+                },
+                {
+                    "username": "urmom",
+                    "message": "does it work"
+                },
+                {
+                    "username": "cpt",
+                    "message": "im back"
+                },
+                {
+                    "username": "cpt",
+                    "message": "test"
                 }
             ]
         }
