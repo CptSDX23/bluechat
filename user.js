@@ -28,6 +28,10 @@ async function run() {
         let btn = "";
         if (localStorage.getItem("username") == JSON.parse(userData).username) {
             btn = '<button class="button3" onclick="logout()" style="float: right;">Log Out</button>';
+            let b       = document.createElement("button");
+            b.className = "button3";
+            b.innerHTML = "Add Server";
+            document.getElementById("servers").appendChild(b);
         }
 
         document.getElementById("name").innerHTML = JSON.parse(userData).username + btn;
@@ -35,11 +39,15 @@ async function run() {
 
         for (var i = 0; i < JSON.parse(userData).servers.length; i++) {
             let s       = document.createElement("p");
-            s.innerHTML = `<a class="clear" href="/server/${JSON.parse(userData).servers[i]}">${JSON.parse(userData).servers[i]}</a>`
+            s.innerHTML = `<a class="clearline" href="/server/${JSON.parse(userData).servers[i]}">${JSON.parse(userData).servers[i]}</a>`
             document.getElementById("servers").appendChild(s);
         }
 
         document.getElementById("servers").removeChild(document.getElementById("servers").firstElementChild);
+
+        if (localStorage.getItem("username") == JSON.parse(userData).username) {
+            
+        }
 
     } else {
         window.location.replace("/404");
