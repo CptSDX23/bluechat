@@ -381,12 +381,12 @@ let app = http.createServer((req, res) => {
 const hostname = "localhost";
 const port     = 8000;
 
-// app.listen(port, hostname, () => {
-//         console.log(`BlueChat server running at http://${hostname}:${port}`)
-// });
+app.listen(port, hostname, () => {
+        console.log(`BlueChat server running at http://${hostname}:${port}`)
+});
 
-app.listen(8000, "0.0.0.0");
-console.log("Running BlueChat server from 8000");
+// app.listen(8000, "0.0.0.0");
+// console.log("Running BlueChat server from 8000");
 
 function jsonEscape(str)  {
     return str.replace(/"/g, "\\\"")
