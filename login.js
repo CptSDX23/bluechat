@@ -20,8 +20,8 @@ async function login() {
 
     // Redirect
     if (loginData != "0") {
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("password", password);
         window.location.replace(loginData);
     } else {
         document.getElementById("error").innerHTML = "Username or password incorrect";
@@ -51,8 +51,8 @@ async function signup() {
 
     // Redirect
     if (signupData != "0") {
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("password", password);
         window.location.replace(signupData);
     } else {
         document.getElementById("error").innerHTML = "Username is already in use";

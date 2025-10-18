@@ -1,6 +1,11 @@
+html {
+    min-height: 100vh;
+}
+
 body {
     background-color: rgb(24, 24, 24);
     margin: 0;
+    min-height: 100vh;
 }
 
 .title {
@@ -123,6 +128,21 @@ body {
     padding-left:     10px;
 }
 
+.desc {
+    color:            white;
+    background-color: rgb(50, 50, 50);
+    width:            calc(100% - 20px);
+    height:           80px;
+    border-radius:    10px;
+    border:           white;
+    font-family:      Verdana, Geneva, Tahoma, sans-serif;
+    font-size:        15px;
+    margin-left:      0px;
+    padding-left:     10px;
+    padding-top:      10px;
+    resize:           vertical;
+}
+
 .message {
     color:            white;
     background-color: rgb(50, 50, 50);
@@ -133,6 +153,19 @@ body {
     font-family:      Verdana, Geneva, Tahoma, sans-serif;
     font-size:        20px;
     padding-left:     10px;
+}
+
+.drop {
+    color:              white;
+    background-color:   rgb(50, 50, 50);
+    border-radius:      5px;
+    border:             none;
+    width:              100px;
+    font-family:        Verdana, Geneva, Tahoma, sans-serif;
+    font-size:          15px;
+    /* appearance:         none;
+    -webkit-appearance: none;
+    -moz-appearance:    none;  */
 }
 
 h1 {
@@ -147,6 +180,15 @@ p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding:     10px;
     margin:      0;
+}
+
+ul {
+    margin: 0px;
+}
+
+li {
+    list-style-type: "-";
+    color:          white;
 }
 
 a.clear {
@@ -166,14 +208,20 @@ a.clear:active {
 
 a.clearline {
     color:          white;
+    text-decoration: underline;
+    cursor:          pointer;
 }
 
 a.clearline:hover {
     color:          white;
+    text-decoration: underline;
+    cursor:          pointer;
 }
 
 a.clearline:active {
     color:          white;
+    text-decoration: underline;
+    cursor:          pointer;
 }
 
 .hidescroll {

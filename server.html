@@ -12,17 +12,16 @@
             <a href="/" class="clear">BlueChat</a>
             <a href="/login" class="clear" id="acc" style="float: right; font-size: 20px; padding-right: 15px; padding-top: 10px;">Log In</a>
         </div>
-        <div>
+        <div style="margin: 0px; padding-bottom: 5px; background-color: rgb(40, 40, 40);">
             <span>
-                <h1 id="name" style="float: left; font-size: 30px;">Server</h1>
-                <p id="desc" style="float: right; width: 75%; text-align: right;">Loading...</p>
+                <h1 id="name" style="float: left; font-size: 20px; margin: 0px; padding: 5px; padding-left: 10px;">Server</h1>
+                <button id="sbutton" class="button3" onclick="leaveServer()" style="float: right; margin-top: 8px; height: 40px;">Leave</button>
             </span>
+            <p style="font-size: 29px; margin: 0px; padding: 0px; padding-left: 10px;"><br></p>
+            <p id="desc" style="font-size: 12px; margin: 0px; padding: 0px; padding-left: 10px;">Loading...</p>
         </div>
-        <br>
-        <br>
-        <br>
-        <div id="chat" class="hidescroll" style="margin: 15px; overflow-y: auto; height: calc(100vh - 160px);"></div>
-        <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(60, 60, 60); padding: 5px;">
+        <div id="chat" class="hidescroll" style="margin: 5px; margin-left: 15px; margin-right: 15px; overflow-y: auto; height: calc(100vh - 155px);"></div>
+        <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgb(40, 40, 40); padding: 5px;">
             <input type="text" placeholder="Enter a message..." class="message" id="message">
         </div>
 

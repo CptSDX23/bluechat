@@ -3,16 +3,38 @@
         {
             "username": "cpt",
             "password": "1234",
-            "description": "A test user that you should not care about",
+            "description": "A user that you should not care about",
             "servers": [
-                "ITOAGeneral",
-                "Admins"
+                "Admins",
+                "ITOAGeneral"
             ]
         },
         {
             "username": "urmom",
             "password": "isfat",
-            "description": "New User",
+            "description": "im so fucking fat lol",
+            "servers": [
+                "ITOAGeneral"
+            ]
+        },
+        {
+            "username": "test",
+            "password": "test",
+            "description": "I am also a test",
+            "servers": []
+        },
+        {
+            "username": "CptSDX23",
+            "password": "gLItcher1",
+            "description": "Contrary to popular belief, I exist.\nThis is the official account of the creator of BlueChat.\n\n<img src=\\\"https://www.extermpro.com/wp-content/uploads/2019/12/bumble-bee-540x540.jpg\\\" style=\\\"width: 80%; height: 200px; margin-left: 10%; margin-right: 10%;\\\">\n\n\\\"Sun Tzu said that\\\"\n<a href=\\\"https://en.wikipedia.org/wiki/Sun_Tzu\\\">- Sun Tzu</a>",
+            "servers": [
+                "ITOAGeneral"
+            ]
+        },
+        {
+            "username": "bob",
+            "password": "bob",
+            "description": "<a href=\\\"https://google.com\\\">Go here</a> for a suprise",
             "servers": []
         }
     ]

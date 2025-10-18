@@ -74,10 +74,9 @@ let app = http.createServer((req, res) => {
         // Requests
         } else if (path == "/logindata") {
 
-            let query   = url.parse(req.url, true).query;
-            let rawData = fs.readFileSync("loginData.json");
-            let data    = JSON.parse(rawData);
-            let fail    = true;
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let fail  = true;
 
             for (var i = 0; i < data.accounts.length; i++) {
                 if (data.accounts[i].username == query.u && data.accounts[i].password == query.p) {
@@ -96,10 +95,9 @@ let app = http.createServer((req, res) => {
             
         } else if (path == "/signupdata") {
 
-            let query   = url.parse(req.url, true).query;
-            let rawData = fs.readFileSync("loginData.json");
-            let data    = JSON.parse(rawData);
-            let fail    = false;
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let fail  = false;
 
             for (var i = 0; i < data.accounts.length; i++) {
                 if (data.accounts[i].username == query.u) {
@@ -124,11 +122,10 @@ let app = http.createServer((req, res) => {
 
         } else if (path == "/udata") {
 
-            let query   = url.parse(req.url, true).query;
-            let rawData = fs.readFileSync("loginData.json");
-            let data    = JSON.parse(rawData);
-            let ret     = "";
-            let fail    = true;
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let ret   = "";
+            let fail  = true;
 
             for (var i = 0; i < data.accounts.length; i++) {
                 if (data.accounts[i].username == query.u) {
@@ -162,23 +159,39 @@ let app = http.createServer((req, res) => {
         } else if (path == "/sdata") {
 
             let query   = url.parse(req.url, true).query;
-            let rawData = fs.readFileSync("serverData.json");
-            let data    = JSON.parse(rawData);
+            let data    = JSON.parse(fs.readFileSync("serverData.json"));
+            let accData = JSON.parse(fs.readFileSync("loginData.json"));
             let ret     = "";
             let fail    = true;
+            let failAcc = true;
 
             for (var i = 0; i < data.servers.length; i++) {
-                if (data.servers[i].name == query.u) {
-
+                if (data.servers[i].name == query.s) {
                     ret  = JSON.stringify(data.servers[i]);
                     fail = false;
-
+                }
+            }
+            for (var i = 0; i < accData.accounts.length; i++) {
+                if (accData.accounts[i].username == query.u && accData.accounts[i].password == query.p) {
+                    failAcc = false;
+                }
+            }
+            if (!fail && !failAcc) {
+                if (!JSON.parse(ret).whitelist.includes(query.u) && JSON.parse(ret).method == "whitelist") {
+                    res.writeHead(200, {"Content-Type": "text/plain"});
+                    res.end("1");
+                    return;
+                }
+                if (JSON.parse(ret).blacklist.includes(query.u) && JSON.parse(ret).method == "blacklist") {
+                    res.writeHead(200, {"Content-Type": "text/plain"});
+                    res.end("1");
+                    return;
                 }
             }
 
             console.log(`Serverdata: ${query.u}`);
 
-            if (fail) {
+            if (fail || failAcc) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end("0");
             } else {
@@ -189,28 +202,161 @@ let app = http.createServer((req, res) => {
         } else if (path == "/msg") {
 
             let query   = url.parse(req.url, true).query;
-            let rawData = fs.readFileSync("serverData.json");
-            let data    = JSON.parse(rawData);
+            let data    = JSON.parse(fs.readFileSync("serverData.json"));
+            let accData = JSON.parse(fs.readFileSync("loginData.json"));
             let ret     = 0;
             let fail    = true;
+            let failAcc = true;
 
             for (var i = 0; i < data.servers.length; i++) {
                 if (data.servers[i].name == query.s) {
-
                     fail = false;
                     ret  = i;
-
+                }
+            }
+            for (var i = 0; i < accData.accounts.length; i++) {
+                if (accData.accounts[i].username == query.u && accData.accounts[i].password == query.p) {
+                    failAcc = false;
                 }
             }
 
             console.log(`Message: ${query.u} "${query.m}"`);
 
+            if (fail || failAcc) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                data.servers[ret].messages.push(JSON.parse(`{"username": "${query.u}", "message": "${jsonEscape(query.m)}"}`));
+                fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
+
+        } else if (path == "/udesc") {
+
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let fail  = true;
+            let ret   = 0;
+
+            for (var i = 0; i < data.accounts.length; i++) {
+                if (data.accounts[i].username == query.u && data.accounts[i].password == query.p) {
+                    fail = false;
+                    ret  = i;
+                }
+            }
+
+            console.log(`User Desc: ${query.u}, "${query.d}"`);
+            
             if (fail) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end("0");
             } else {
 
-                data.servers[ret].messages.push(JSON.parse(`{"username": "${query.u}", "message": "${query.m}"}`));
+                data.accounts[ret].description = jsonEscape(query.d);
+                fs.writeFileSync("loginData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
+
+        } else if (path == "/aserver") {
+
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let fail  = true;
+            let ret   = 0;
+
+            for (var i = 0; i < data.accounts.length; i++) {
+                if (data.accounts[i].username == query.u && data.accounts[i].password == query.p) {
+                    fail = false;
+                    ret  = i;
+                }
+            }
+
+            console.log(`Add Server: ${query.u}, "${query.s}"`);
+            
+            if (fail) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                data.accounts[ret].servers.push(query.s);
+                fs.writeFileSync("loginData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
+
+        } else if (path == "/lserver") {
+
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let fail  = true;
+            let ret   = 0;
+
+            for (var i = 0; i < data.accounts.length; i++) {
+                if (data.accounts[i].username == query.u && data.accounts[i].password == query.p) {
+                    fail = false;
+                    ret  = i;
+                }
+            }
+
+            console.log(`Leave Server: ${query.u}, "${query.s}"`);
+            
+            if (fail) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                let index = data.accounts[ret].servers.indexOf(query.s);
+                if (index > -1) {
+                    data.accounts[ret].servers.splice(index, 1);
+                }
+
+                fs.writeFileSync("loginData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
+
+        } else if (path == "/eserver") {
+
+            let query   = url.parse(req.url, true).query;
+            let accData = JSON.parse(fs.readFileSync("loginData.json"));
+            let data    = JSON.parse(fs.readFileSync("serverData.json"));
+            let fail    = true;
+            let failAcc = true;
+            let ret     = 0;
+
+            for (var i = 0; i < data.servers.length; i++) {
+                if (data.servers[i].name == query.s && data.servers[i].owner == query.u) {
+                    fail = false;
+                    ret  = i;
+                }
+            }
+
+            for (var i = 0; i < accData.accounts.length; i++) {
+                if (accData.accounts[i].username == query.u && accData.accounts[i].password == query.p) {
+                    failAcc = false;
+                }
+            }
+
+            console.log(`Edit Server: ${query.u}, "${query.d}"`);
+            
+            if (fail) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                data.servers[ret].description = query.d;
+
                 fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
 
                 res.writeHead(200, {"Content-Type": "text/plain"});
@@ -241,3 +387,7 @@ app.listen(port, hostname, () => {
 
 // app.listen(8000, "0.0.0.0");
 // console.log("Running BlueChat server from 8000");
+
+function jsonEscape(str)  {
+    return str.replace(/"/g, "\\\"")
+}

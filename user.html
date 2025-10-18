@@ -12,7 +12,7 @@
             <a href="/" class="clear">BlueChat</a>
             <a href="/login" class="clear" id="acc" style="float: right; font-size: 20px; padding-right: 15px; padding-top: 10px;">Log In</a>
         </div>
-        <div style="margin-left: 20%; margin-right: 20%;">
+        <div class="hidescroll" style="margin-top: 2px; margin-left: 20%; margin-right: 20%; overflow-y: auto; height: calc(100vh - 52px);">
             <div>
                 <h1 id="name" style="font-size: 50px;">
                     User<button class="button3" onclick="logout()" style="float: right;">Log Out</button>
@@ -22,6 +22,7 @@
             <div style="margin: 25px;"></div>
             <h1 style="font-size: 30px;">Joined Servers</h1>
             <div id="servers" style="font-size: 20px;"><p>Loading...</p></div>
+            <div style="margin: 50px;"></div>
         </div>
         
         <script src="credentials.js"></script>

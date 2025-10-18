@@ -1,4 +1,4 @@
-const username = localStorage.username;
+const username = sessionStorage.username;
 
 if (username) {
     document.getElementById("acc").innerHTML = username;

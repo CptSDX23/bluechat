@@ -3,47 +3,68 @@
         {
             "name": "ITOAGeneral",
             "owner": "cpt",
-            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense!",
-            "whitelist": [
-                "cpt",
+            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense! This is a test",
+            "whitelist": [],
+            "blacklist": [
                 "urmom"
             ],
+            "method": "blacklist",
             "messages": [
                 {
-                    "username": "urmom",
-                    "message": "test again"
+                    "username": "cpt",
+                    "message": "Welcome to ITOA General!"
                 },
                 {
                     "username": "cpt",
-                    "message": "hello world"
+                    "message": "im a hacker"
+                },
+                {
+                    "username": "test",
+                    "message": "hello im new"
                 },
                 {
                     "username": "cpt",
-                    "message": "again"
+                    "message": "ban this kid"
+                },
+                {
+                    "username": "CptSDX23",
+                    "message": "yo this is the real cpt fcking faker"
                 },
                 {
                     "username": "cpt",
-                    "message": "clear test"
+                    "message": "i can type what ever i want and no one can stop me"
                 },
                 {
                     "username": "cpt",
-                    "message": "type"
-                },
-                {
-                    "username": "urmom",
-                    "message": "im so fat lol"
-                },
-                {
-                    "username": "urmom",
-                    "message": "does it work"
-                },
-                {
-                    "username": "cpt",
-                    "message": "im back"
+                    "message": "<img src='https://www.extermpro.com/wp-content/uploads/2019/12/bumble-bee-540x540.jpg'>"
                 },
                 {
                     "username": "cpt",
                     "message": "test"
+                },
+                {
+                    "username": "cpt",
+                    "message": "asdf"
+                },
+                {
+                    "username": "cpt",
+                    "message": "asdf^2"
+                },
+                {
+                    "username": "cpt",
+                    "message": "asdf^3"
+                },
+                {
+                    "username": "cpt",
+                    "message": "<a href=\"https://www.google.com\">Goggle</a>"
+                },
+                {
+                    "username": "cpt",
+                    "message": "cool"
+                },
+                {
+                    "username": "cpt",
+                    "message": "cool^2"
                 }
             ]
         }
