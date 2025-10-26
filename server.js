@@ -176,7 +176,7 @@ let app = http.createServer((req, res) => {
                     failAcc = false;
                 }
             }
-            if (!fail && !failAcc) {
+            if (!fail && !failAcc && JSON.parse(ret).owner != query.u) {
                 if (!JSON.parse(ret).whitelist.includes(query.u) && JSON.parse(ret).method == "whitelist") {
                     res.writeHead(200, {"Content-Type": "text/plain"});
                     res.end("1");
@@ -348,7 +348,7 @@ let app = http.createServer((req, res) => {
                 }
             }
 
-            console.log(`Edit Server: ${query.u}, "${query.d}"`);
+            console.log(`Edit Server: ${query.u}, "${query.d}", ${query.m}`);
             
             if (fail) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
@@ -356,6 +356,13 @@ let app = http.createServer((req, res) => {
             } else {
 
                 data.servers[ret].description = query.d;
+                data.servers[ret].method      = query.m;
+
+                if (query.m == "whitelist") {
+                    data.servers[ret].whitelist = query.l.split(",");
+                } else {
+                    data.servers[ret].blacklist = query.l.split(",");
+                }
 
                 fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
 

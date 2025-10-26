@@ -32,10 +32,24 @@ async function getUser() {
         if (sessionStorage.getItem("username") == JSON.parse(jsonEscape(userData)).username) {
             btn = '<button class="button3" onclick="logout()" style="float: right;">Log Out</button>';
             let b       = document.createElement("button");
+
             b.className = "button3";
             b.innerHTML = "Add Server";
+            b.style     = "float: right;";
             b.onclick   = () => { addServer(); };
+            
+            let t         = document.createElement("input");
+            t.type        = "text";
+            t.placeholder = "Enter a server name...";
+            t.className   = "creds";
+            t.id          = "addserver";
+            t.style       = "float: left; width: calc(100% - 200px); font-size: 25px; margin-top: 5px;";
+
+            document.getElementById("servers").appendChild(t);
             document.getElementById("servers").appendChild(b);
+            document.getElementById("servers").appendChild(document.createElement("br"));
+            document.getElementById("servers").appendChild(document.createElement("br"));
+            document.getElementById("servers").appendChild(document.createElement("br"));
         }
 
         document.getElementById("name").innerHTML = JSON.parse(jsonEscape(userData)).username + btn;
@@ -95,9 +109,15 @@ async function applyDescription() {
 }
 
 async function addServer() {
+
+    let serverInput = document.getElementById("addserver").value;
+
+    if (!sanitized(serverInput)) {
+        document.getElementById("servererror").innerHTML = "Not a valid server name";
+    }
     
     // Tell the server to add a chat server and get the response
-    const res = await fetch(`/aserver?u=${sessionStorage.username}&p=${sessionStorage.password}&s=${"ITOAGeneral"}`);
+    const res = await fetch(`/aserver?u=${sessionStorage.username}&p=${sessionStorage.password}&s=${encodeURIComponent(serverInput)}`);
     if (!res.ok) {
         throw new Error(`HTTP response error: ${res.status}`);
     }

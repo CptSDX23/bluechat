@@ -1,27 +1,14 @@
 {
     "accounts": [
         {
-            "username": "cpt",
+            "username": "testadmin",
             "password": "1234",
             "description": "A user that you should not care about",
             "servers": [
                 "Admins",
-                "ITOAGeneral"
+                "ITOAGeneral",
+                "urmom"
             ]
-        },
-        {
-            "username": "urmom",
-            "password": "isfat",
-            "description": "im so fucking fat lol",
-            "servers": [
-                "ITOAGeneral"
-            ]
-        },
-        {
-            "username": "test",
-            "password": "test",
-            "description": "I am also a test",
-            "servers": []
         },
         {
             "username": "CptSDX23",
@@ -30,18 +17,6 @@
             "servers": [
                 "ITOAGeneral"
             ]
-        },
-        {
-            "username": "bob",
-            "password": "bob",
-            "description": "<a href=\\\"https://google.com\\\">Go here</a> for a suprise",
-            "servers": []
-        },
-        {
-            "username": "robertFatcheric",
-            "password": "3141",
-            "description": "blah blah blah",
-            "servers": []
         }
     ]
 }

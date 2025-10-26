@@ -159,13 +159,18 @@ async function serverSettings() {
 
 function showSetting() {
 
-    let name = window.location.href.split("/");
-    name     = name[name.length - 1];
-    name     = name.trim();
-    let desc = JSON.parse(jsonEscape(serverData)).description;
+    document.getElementById("chat").scrollTop = 0;
+
+    let name   = window.location.href.split("/");
+    name       = name[name.length - 1];
+    name       = name.trim();
+    let desc   = JSON.parse(jsonEscape(serverData)).description;
+    let method = JSON.parse(jsonEscape(serverData)).method;
+    let wList  = jsonCommaUnescape(JSON.stringify(JSON.parse(jsonEscape(serverData)).whitelist));
+    let bList  = jsonCommaUnescape(JSON.stringify(JSON.parse(jsonEscape(serverData)).blacklist));
 
     document.getElementById("message").style.display = "none";
-    document.getElementById("chat")   .style.height  = "calc(100vh - 135px)";
+    document.getElementById("chat")   .style.height  = "calc(100vh - 125px)";
 
     document.getElementById("sbutton").innerHTML = 'Apply';
     document.getElementById("sbutton").onclick   = () => { applySettings(); };
@@ -178,7 +183,13 @@ function showSetting() {
     document.getElementById("chat").innerHTML += `<p style="font-size: 15px;">List to use: <select class="drop" id="listdrop" name="Authorization List Dropdown">
                                                     <option value="whitelist">Whitelist</option>
                                                     <option value="blacklist">Blacklist</option>
-                                                  </select></p>`
+                                                  </select></p>`;
+    document.getElementById("chat").innerHTML += `<p style="font-size: 15px;">Whitelist:</p>`
+    document.getElementById("chat").innerHTML += `<textarea class="desc" id="editwlist" style="margin-left: 5px;" placeholder="Enter usernames on the whitelist..." rows="3">${wList}</textarea>`;
+    document.getElementById("chat").innerHTML += `<p style="font-size: 15px;">Blacklist:</p>`
+    document.getElementById("chat").innerHTML += `<textarea class="desc" id="editblist" style="margin-left: 5px;" placeholder="Enter usernames on the blacklist..." rows="3">${bList}</textarea>`;
+
+    document.getElementById("listdrop").value = method;
 
 }
 
@@ -188,10 +199,17 @@ async function applySettings() {
     name     = name[name.length - 1];
     name     = name.trim();
 
-    let desc = document.getElementById("editdesc").value;
+    let desc   = document.getElementById("editdesc").value;
+    let method = document.getElementById("listdrop").value;
+    let list   = "";
+    if (method == "whitelist") {
+        list = jsonCommaEscape(document.getElementById("editwlist").value);
+    } else if (method == "blacklist") {
+        list = jsonCommaEscape(document.getElementById("editblist").value);
+    } 
     
     // Tell the server to edit the settings of a chat server and get the response
-    const res = await fetch(`/eserver?u=${sessionStorage.username}&p=${sessionStorage.password}&s=${name}&d=${encodeURIComponent(jsonUnescape(desc))}`);
+    const res = await fetch(`/eserver?u=${sessionStorage.username}&p=${sessionStorage.password}&s=${name}&d=${encodeURIComponent(jsonUnescape(desc))}&m=${encodeURIComponent(method)}&l=${encodeURIComponent(list)}`);
     if (!res.ok) {
         throw new Error(`HTTP response error: ${res.status}`);
     }
@@ -223,4 +241,13 @@ function jsonEscape(str)  {
 // This is a goated method name
 function jsonUnescape(str)  {
     return str.replace(/\\n/g, "\n").replace(/\\\\r/g, "\r").replace(/\\\\t/g, "\t");
+}
+
+// I should really refactor ts
+function jsonCommaEscape(str) {
+    return str.replace(/\n/g, ",");
+}
+
+function jsonCommaUnescape(text) {
+    return text.replace(/,/g, "\n").replace(/"/g, "").replace("[", "").replace("]", "");
 }

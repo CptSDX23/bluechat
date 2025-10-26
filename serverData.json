@@ -2,74 +2,13 @@
     "servers": [
         {
             "name": "ITOAGeneral",
-            "owner": "cpt",
-            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense! This is a test",
+            "owner": "CptSDX23",
+            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense!",
             "whitelist": [],
-            "blacklist": [
-                "urmom"
-            ],
+            "blacklist": [],
             "method": "blacklist",
             "messages": [
-                {
-                    "username": "cpt",
-                    "message": "Welcome to ITOA General!"
-                },
-                {
-                    "username": "cpt",
-                    "message": "im a hacker"
-                },
-                {
-                    "username": "test",
-                    "message": "hello im new"
-                },
-                {
-                    "username": "cpt",
-                    "message": "ban this kid"
-                },
-                {
-                    "username": "CptSDX23",
-                    "message": "yo this is the real cpt fcking faker"
-                },
-                {
-                    "username": "cpt",
-                    "message": "i can type what ever i want and no one can stop me"
-                },
-                {
-                    "username": "cpt",
-                    "message": "<img src='https://www.extermpro.com/wp-content/uploads/2019/12/bumble-bee-540x540.jpg'>"
-                },
-                {
-                    "username": "cpt",
-                    "message": "test"
-                },
-                {
-                    "username": "cpt",
-                    "message": "asdf"
-                },
-                {
-                    "username": "cpt",
-                    "message": "asdf^2"
-                },
-                {
-                    "username": "cpt",
-                    "message": "asdf^3"
-                },
-                {
-                    "username": "cpt",
-                    "message": "<a href=\"https://www.google.com\">Goggle</a>"
-                },
-                {
-                    "username": "cpt",
-                    "message": "cool"
-                },
-                {
-                    "username": "cpt",
-                    "message": "cool^2"
-                },
-                {
-                    "username": "robertFatcheric",
-                    "message": "neato"
-                }
+                
             ]
         }
     ]
