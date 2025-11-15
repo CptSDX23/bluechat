@@ -176,7 +176,7 @@ let app = http.createServer((req, res) => {
                     failAcc = false;
                 }
             }
-            if (!fail && !failAcc && JSON.parse(ret).owner != query.u) {
+            if (!fail && !failAcc) {
                 if (!JSON.parse(ret).whitelist.includes(query.u) && JSON.parse(ret).method == "whitelist") {
                     res.writeHead(200, {"Content-Type": "text/plain"});
                     res.end("1");
@@ -348,7 +348,7 @@ let app = http.createServer((req, res) => {
                 }
             }
 
-            console.log(`Edit Server: ${query.u}, "${query.d}", ${query.m}`);
+            console.log(`Edit Server: ${query.u}, "${query.d}"`);
             
             if (fail) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
@@ -356,13 +356,6 @@ let app = http.createServer((req, res) => {
             } else {
 
                 data.servers[ret].description = query.d;
-                data.servers[ret].method      = query.m;
-
-                if (query.m == "whitelist") {
-                    data.servers[ret].whitelist = query.l.split(",");
-                } else {
-                    data.servers[ret].blacklist = query.l.split(",");
-                }
 
                 fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
 
@@ -388,12 +381,12 @@ let app = http.createServer((req, res) => {
 const hostname = "localhost";
 const port     = 8000;
 
-//app.listen(port, hostname, () => {
-        //console.log(`BlueChat server running at http://${hostname}:${port}`)
-//});
+app.listen(8000, () => {
+        console.log(`BlueChat server running at port ${port}`)
+});
 
- app.listen(3000, "0.0.0.0");
-console.log("Running BlueChat server from 3000");
+// app.listen(8000, "0.0.0.0");
+// console.log("Running BlueChat server from 8000");
 
 function jsonEscape(str)  {
     return str.replace(/"/g, "\\\"")
