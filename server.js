@@ -381,7 +381,7 @@ let app = http.createServer((req, res) => {
 const hostname = "localhost";
 const port     = 8000;
 
-app.listen(8000, () => {
+app.listen(8000, "127.0.0.1", () => {
         console.log(`BlueChat server running at port ${port}`)
 });
 
