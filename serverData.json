@@ -3,13 +3,14 @@
         {
             "name": "ITOAGeneral",
             "owner": "CptSDX23",
-            "description": "Chat for all ITOA students. Share info on classes, events, etc. Please use common sense!",
-            "whitelist": [],
+            "description": "Server for anyone in the ITOA program. Please use common sense!",
+            "whitelist": [
+                "CptSDX23",
+                "RobertFatcheric"
+            ],
             "blacklist": [],
-            "method": "blacklist",
-            "messages": [
-                
-            ]
+            "method": "whitelist",
+            "messages": []
         }
     ]
 }

@@ -39,6 +39,10 @@ let app = http.createServer((req, res) => {
             let js = fs.readFileSync("chatServer.js");
             res.writeHead(200, {"Content-Type": "text/javascript"});
             res.end(js);
+        } else if (path.endsWith("favicon.png")) {
+            let favicon = fs.readFileSync("favicon.png");
+            res.writeHead(200, {"Content-Type": "image/png"});
+            res.end(favicon);
 
         } else if (path == "/notallowed") {
             let page = fs.readFileSync("notAllowed.html");
@@ -176,7 +180,7 @@ let app = http.createServer((req, res) => {
                     failAcc = false;
                 }
             }
-            if (!fail && !failAcc) {
+            if ((!fail && !failAcc) && JSON.parse(ret).owner != query.u) {
                 if (!JSON.parse(ret).whitelist.includes(query.u) && JSON.parse(ret).method == "whitelist") {
                     res.writeHead(200, {"Content-Type": "text/plain"});
                     res.end("1");
@@ -227,8 +231,10 @@ let app = http.createServer((req, res) => {
                 res.end("0");
             } else {
 
-                data.servers[ret].messages.push(JSON.parse(`{"username": "${query.u}", "message": "${jsonEscape(query.m)}"}`));
-                fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
+                if (jsonEscape(query.m) != "") {
+                    data.servers[ret].messages.push(JSON.parse(`{"username": "${query.u}", "time": ${Date.now()}, "message": "${jsonEscape(query.m)}"}`));
+                    fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
+                }
 
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end("1");
@@ -268,7 +274,9 @@ let app = http.createServer((req, res) => {
 
             let query = url.parse(req.url, true).query;
             let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let sData = JSON.parse(fs.readFileSync("serverData.json"));
             let fail  = true;
+            let failS = true;
             let ret   = 0;
 
             for (var i = 0; i < data.accounts.length; i++) {
@@ -278,15 +286,52 @@ let app = http.createServer((req, res) => {
                 }
             }
 
+            for (var i = 0; i < sData.servers.length; i++) {
+                if (sData.servers[i].name == query.s && !data.accounts[ret].servers.includes(sData.servers[i].name)) failS = false;
+            }
+
             console.log(`Add Server: ${query.u}, "${query.s}"`);
             
-            if (fail) {
+            if (fail || failS) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end("0");
             } else {
 
                 data.accounts[ret].servers.push(query.s);
                 fs.writeFileSync("loginData.json", JSON.stringify(data, null, 4), "utf8");
+
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("1");
+
+            }
+
+        } else if (path == "/cserver") {
+
+            let query = url.parse(req.url, true).query;
+            let data  = JSON.parse(fs.readFileSync("loginData.json"));
+            let sData = JSON.parse(fs.readFileSync("serverData.json"));
+            let fail  = true;
+            let failS = false;
+
+            for (var i = 0; i < data.accounts.length; i++) {
+                if (data.accounts[i].username == query.u && data.accounts[i].password == query.p) {
+                    fail = false;
+                }
+            }
+
+            for (var i = 0; i < sData.servers.length; i++) {
+                if (sData.servers[i].name == query.s) failS = true;
+            }
+
+            console.log(`Create Server: ${query.u}, "${query.s}"`);
+            
+            if (fail || failS) {
+                res.writeHead(200, {"Content-Type": "text/plain"});
+                res.end("0");
+            } else {
+
+                sData.servers.push(JSON.parse(`{"name": "${query.s}", "owner": "${query.u}", "description": "New server", "whitelist": ["${query.u}"], "blacklist": [], "method": "whitelist", "messages": []}`));
+                fs.writeFileSync("serverData.json", JSON.stringify(sData, null, 4), "utf8");
 
                 res.writeHead(200, {"Content-Type": "text/plain"});
                 res.end("1");
@@ -348,7 +393,7 @@ let app = http.createServer((req, res) => {
                 }
             }
 
-            console.log(`Edit Server: ${query.u}, "${query.d}"`);
+            console.log(`Edit Server: ${query.u}, "${query.d}", ${query.m}`);
             
             if (fail) {
                 res.writeHead(200, {"Content-Type": "text/plain"});
@@ -356,6 +401,14 @@ let app = http.createServer((req, res) => {
             } else {
 
                 data.servers[ret].description = query.d;
+                data.servers[ret].method      = query.m;
+
+                let list = query.l.split(",");
+                if (data.servers[ret].method == "whitelist") {
+                    data.servers[ret].whitelist = list;
+                } else {
+                    data.servers[ret].blacklist = list;
+                }
 
                 fs.writeFileSync("serverData.json", JSON.stringify(data, null, 4), "utf8");
 
@@ -371,8 +424,8 @@ let app = http.createServer((req, res) => {
         }
 
     } else {
-        let favicon = fs.readFileSync("b.webp");
-        res.writeHead(200, {"Content-Type": "image/webp"});
+        let favicon = fs.readFileSync("favicon.png");
+        res.writeHead(200, {"Content-Type": "image/png"});
         res.end(favicon);
     }
 

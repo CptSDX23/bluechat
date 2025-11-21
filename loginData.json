@@ -1,19 +1,9 @@
 {
     "accounts": [
         {
-            "username": "testadmin",
-            "password": "1234",
-            "description": "A user that you should not care about",
-            "servers": [
-                "Admins",
-                "ITOAGeneral",
-                "urmom"
-            ]
-        },
-        {
             "username": "CptSDX23",
             "password": "gLItcher1",
-            "description": "Contrary to popular belief, I exist.\nThis is the official account of the creator of BlueChat.\n\n<img src=\\\"https://www.extermpro.com/wp-content/uploads/2019/12/bumble-bee-540x540.jpg\\\" style=\\\"width: 80%; height: 200px; margin-left: 10%; margin-right: 10%;\\\">\n\n\\\"Sun Tzu said that\\\"\n<a href=\\\"https://en.wikipedia.org/wiki/Sun_Tzu\\\">- Sun Tzu</a>",
+            "description": "<p style=\\\"float: left; margin: 0px; padding: 0px;\\\"><img src=\\\"https://www.extermpro.com/wp-content/uploads/2019/12/bumble-bee-540x540.jpg\\\" style=\\\"height: 110px; margin-right: 15px;\\\"></p>Contrary to popular belief, I exist.\nThis is the official account of the creator of BlueChat.\n\n\\\"Sun Tzu said that\\\"\n<a href=\\\"https://en.wikipedia.org/wiki/Sun_Tzu\\\">- Sun Tzu</a>",
             "servers": [
                 "ITOAGeneral"
             ]
